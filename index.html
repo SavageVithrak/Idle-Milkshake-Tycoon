@@ -68,13 +68,16 @@
         }
       });
       
-      // Buy cow function
+      // Buy cow function with not enough money message 
       buyBtn.addEventListener("click", function() {
         if (money >= cowCost) {
           cows++;
           money -= cowCost;
           cowCost *= costExponent;
           updateUI();
+        } else {          
+          (money <= cowCost)
+          alert('Not enough money')
         }
       });
       
@@ -86,6 +89,9 @@
           money -= siloCost;
           siloCost *= siloExponent;
           updateUI();
+        } else {          
+          (money <= siloCost)
+          alert('Not enough money')
         }
       });
       updateUI();
