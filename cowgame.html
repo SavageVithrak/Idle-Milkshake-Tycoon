@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Idle Milkshake Tycoon</title>
+  </head>
+  <body>
+    <!-- Variables -->
+    <p id="cows">Cows: 10</p>
+    <p id="milk">Milk: 0/1000</p>
+    <p id="money">Money: $0</p>
+    <p id="silos">Silos: 0</p>
+    
+    <!-- Buttons -->
+    <button id="sellBtn">Sell Milk</button>
+    <button id="buyBtn">Buy Cow ($50)</button>
+    <button id="buySiloBtn">Buy Silo ($250)</button>
+    
+    <script>
+      // Variables
+      let cows = 10;
+      let milk = 0;
+      let money = 3000000;
+      let maxMilk = 1000;
+      let cowCost = 50;
+      let costExponent = 1.1;
+      let silos = 1;
+      let siloCost = 250;
+      let siloExponent = 1.15;
+      
+      // Constants
+      const TICK_RATE = 500;
+      const MILK_PRODUCTION = 1;
+      const SELL_PRICE = 2;
+      const SILO_STORAGE = 1000;
+      
+      // Get UI elements
+      const cowsDisplay = document.querySelector("#cows");
+      const milkDisplay = document.querySelector("#milk");
+      const moneyDisplay = document.querySelector("#money");
+      const silosDisplay = document.querySelector("#silos");
+      const sellBtn = document.querySelector("#sellBtn");
+      const buyBtn = document.querySelector("#buyBtn");
+      const buySiloBtn = document.querySelector("#buySiloBtn");
+      
+      // Update UI elements
+      function updateUI() {
+        cowsDisplay.innerText = `Cows: ${cows}`;
+        milkDisplay.innerText = `Milk: ${milk}/${maxMilk}`;
+        moneyDisplay.innerText = `Money: $${Math.floor(money)}`;
+        buyBtn.innerText = `Buy Cow ($${Math.floor(cowCost)})`;
+        silosDisplay.innerText = `Silos: ${silos}`;
+        buySiloBtn.innerText = `Buy Silo ($${Math.floor(siloCost)})`;
+      }
+      
+      // Game logic
+      setInterval(function() {
+        milk += cows * MILK_PRODUCTION;
+        milk = Math.min(milk, maxMilk);
+        updateUI();
+      }, TICK_RATE);
+      
+      // Sell milk function
+      sellBtn.addEventListener("click", function() {
+        if (milk > 0) {
+          money += milk * SELL_PRICE;
+          milk = 0;
+          updateUI();
+        }
+      });
+      
+      // Buy cow function
+      buyBtn.addEventListener("click", function() {
+        if (money >= cowCost) {
+          cows++;
+          money -= cowCost;
+          cowCost *= costExponent;
+          updateUI();
+        }
+      });
+      
+      // Buy silo function
+      buySiloBtn.addEventListener("click", function() {
+        if (money >= siloCost) {
+          silos++;
+          maxMilk += SILO_STORAGE;
+          money -= siloCost;
+          siloCost *= siloExponent;
+          updateUI();
+        }
+      });
+      
+      localStorage
+      updateUI();
+    </script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1178870105957838"
+crossorigin="anonymous"></script>
+  </body>
+</html>
+
